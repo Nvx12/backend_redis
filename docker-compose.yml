@@ -3,49 +3,65 @@ version: '3.7'
 services:
   redis:
     image: redis/redis-stack:7.2.0-v6
-    container_name: redis
     restart: unless-stopped
     ports:
       - '6379:6379'
     networks:
-      - node-network
+      - tun_prod
     volumes:
       - ./redis_data:/data
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
   backend:
     build: .
-    container_name: backend
+    image: backend
     restart: unless-stopped
     command: npm run dev
     ports:
-      - 5000:5000
+      - 5500:5500
     networks:
-      - node-network
+      - tun_prod
     depends_on:
       - redis
       - mongodb
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
   mongodb:
     image: mongo
-    container_name: db
     restart: unless-stopped
     volumes:
       - ./mongoDB_data:/data
     ports:
       - "27017:27017"
     networks:
-      - node-network
+      - tun_prod
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
   mongogui:
     image: mongo-express
     restart: unless-stopped
     ports:
       - 8081:8081
     networks:
-      - node-network
+      - tun_prod
     environment:
        - ME_CONFIG_MONGODB_URL=mongodb://mongodb:27017
     depends_on:
       - mongodb
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
 networks:
-  node-network:
-    driver: bridge
-    
+  tun_prod:
+    external: true
