@@ -11,6 +11,13 @@ dotenv.config();
 const app = express();
 const register = new client.Registry();
 
+const corsConfig = {
+    origin: true,
+    credentials: true,
+};
+app.use(cors(corsConfig));
+app.options('*', cors(corsConfig));
+
 db();
 const metric_label_enum = {
     PATH: "path",
@@ -56,7 +63,7 @@ client.collectDefaultMetrics({ register })
 register.registerMetric(http_request_total);
 
 app.use((req, res, next) => {
-    
+
     const req_url = new URL(req.url, `http://${req.headers.host}`);
 
     const original_res_send_function = res.send;
@@ -81,12 +88,7 @@ app.get("/metrics", async (req, res, next) => {
 });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const corsConfig = {
-    origin: true,
-    credentials: true,
-};
-app.use(cors(corsConfig));
-app.options('*', cors(corsConfig));
+
 app.use('/v1', router);
 app.use((req, res, next) => {
     console.log('info', `${req.method} ${req.url}`);
