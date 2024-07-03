@@ -21,7 +21,6 @@ app.use(cors(corsConfig));
 app.options('*', cors(corsConfig));
 
 db();
-
 const metric_label_enum = {
     PATH: "path",
     METHOD: "method",

@@ -2,6 +2,10 @@
 Dockerfile
 .dockerignore
 docker-compose.yml
+<<<<<<< HEAD
 .env
 .git
 .gitignore
+=======
+.env
+>>>>>>> 20a7fddaf2aeace26b3dd909ed38fc2ef113e609
