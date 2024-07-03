@@ -28,8 +28,6 @@ services:
         mode: host
     networks:
       - tun_prod
-    env_file:
-      - .env
     deploy:
       replicas: 1
       restart_policy:
