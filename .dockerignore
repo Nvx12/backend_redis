@@ -2,3 +2,6 @@
 Dockerfile
 .dockerignore
 docker-compose.yml
+.env
+.git
+.gitignore

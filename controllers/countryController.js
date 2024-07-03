@@ -9,7 +9,7 @@ const Country = mongoose.model('Country', CountrySchema);
 export const createCountry = async (req, res) => {
     try {
         const countryName = req.body.name;
-        const cacheKey = "country_" + countryName;
+        const cacheKey = "countries" + countryName;
 
         const cacheCountry = await RedisConnection.redis.get(cacheKey);
 
@@ -24,9 +24,11 @@ export const createCountry = async (req, res) => {
             const country = new Country(req.body);
             await country.save();
 
-            await RedisConnection.redis.del("countries");
-
             await RedisConnection.redis.set(cacheKey, JSON.stringify(country));
+
+            const countries = await Country.find();
+            await RedisConnection.redis.set("countries", JSON.stringify(countries));
+
             res.status(200).send('Country created');
         }
     } catch (error) {
@@ -55,10 +57,10 @@ export const getCountries = async (req, res) => {
 export const getCountryById = async (req, res) => {
     try {
         const { id } = req.params;
-        const cacheKey = "country_" + id;
+        const cacheKey = "countries" + id;
 
         const cachedCountry = await RedisConnection.redis.get(cacheKey);
-        console.log(cachedCountry !== null);
+
         if (cachedCountry !== null) {
             const country = JSON.parse(cachedCountry);
 
@@ -82,7 +84,7 @@ export const getCountryById = async (req, res) => {
 export const deleteCountry = async (req, res) => {
     try {
         const { id } = req.params;
-        const cacheKey = "country_" + id;
+        const cacheKey = "countries" + id;
 
         const country = await Country.findByIdAndDelete(id);
         if (country) {
@@ -100,7 +102,7 @@ export const deleteCountry = async (req, res) => {
 export const updateCountry = async (req, res) => {
     try {
         const { id } = req.params;
-        const cacheKey = "country_" + id;
+        const cacheKey = "countries" + id;
 
         const updatedCountry = await Country.findByIdAndUpdate(id, { $set: req.body }, { new: true });
         if (updatedCountry) {
