@@ -153,3 +153,17 @@ spec:
   ports:
   - port: 8081
     targetPort: 8081
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: client-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: client
+        image: byrnedo/alpine-curl
+        command: ["curl", "-s", "http://nodejs-app"]
+      restartPolicy: Never
+  backoffLimit: 4
