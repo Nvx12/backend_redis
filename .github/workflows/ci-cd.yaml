@@ -24,7 +24,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./
-          file: ./dockerfile.test
+          file: ./Dockerfile
           push: true
           tags: "${{ secrets.DOCKER_HUB_USERNAME }}/backend"
       - name: Run the image in a container
