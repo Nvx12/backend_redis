@@ -8,8 +8,6 @@ on:
 jobs:
   build_push:
     runs-on: ubuntu-latest
-    needs:
-      - sonarqube
     steps:
       - name: checkout repo
         uses: actions/checkout@v3
