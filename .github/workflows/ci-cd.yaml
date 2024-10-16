@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      
+
 jobs:
   build_push:
     runs-on: ubuntu-latest
@@ -36,7 +36,7 @@ jobs:
             echo "Testing the nodejs app endpoints"
   deploy:
    name: Create k8s deployment
-   runs-on: kubernetes-runner
+   runs-on: actions_runner_dev
    steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4  
