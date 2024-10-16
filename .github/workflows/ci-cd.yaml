@@ -37,6 +37,7 @@ jobs:
   deploy:
    name: Create k8s deployment
    runs-on: actions_runner_dev
+   needs: build_push
    steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4  
