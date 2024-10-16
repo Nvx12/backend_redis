@@ -20,7 +20,10 @@ spec:
       - name: nodejs-app
         image: "raslensafsaf/backend:latest"
         ports:
-          - containerPort: 3000
+          - containerPort: 5500
+        envFrom:
+          - configMapRef:
+              name: nodejs-app-env 
 ---
 apiVersion: v1
 kind: Service
