@@ -3,3 +3,4 @@ node_modules
 /data
 /redis_data
 mongoDB_data
+configMapEnv.yml
