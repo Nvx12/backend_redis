@@ -35,7 +35,7 @@ jobs:
             echo "runing the docker image"
             echo "Testing the nodejs app endpoints"
   deploy:
-   name: Create k8s deployment
+   name: deploy on k8s
    runs-on: actions_runner_dev
    needs: build_push
    steps:
