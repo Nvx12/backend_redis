@@ -34,4 +34,19 @@ jobs:
           run: |
             echo "runing the docker image"
             echo "Testing the nodejs app endpoints"
-    
+  deploy:
+   name: Create k8s deployment
+   runs-on: kubernetes-runner
+   steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4  
+     
+      - name: Download kubectl binaries
+        run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+     
+      - name: Install Kubectl
+        run: sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+      
+      - name: Deploy the application
+        run: |
+          kubectl apply -f ./k8s-node-app.yaml
