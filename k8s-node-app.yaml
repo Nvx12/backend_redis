@@ -24,6 +24,7 @@ spec:
         envFrom:
           - configMapRef:
               name: nodejs-app-env 
+              
 ---
 apiVersion: v1
 kind: Service
