@@ -4,4 +4,6 @@ metadata:
   name: nodejs-app-env
   namespace: default
 data:
-  PORT: "5500"
+  PORT: "5500",
+  REDIS_URL:"redis://redis.default.svc.cluster.local:6379", 
+  MONGO_URL:"mongodb://mongodb.default.svc.cluster.local:27017/test"
