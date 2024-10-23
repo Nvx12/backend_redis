@@ -5,7 +5,7 @@ import { countrySchema } from "../schemas/countrySchema.js";
 var isReady = false;
 
 const redis = createClient({
-    url: 'redis://redis.default.svc.cluster.local:6379',
+    url: process.env.REDIS_URL,
     pingInterval: 1000,
     legacyMode: false
 });

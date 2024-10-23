@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 const db = async () => {
     try {
         mongoose.set('strictQuery', true)
-        await mongoose.connect('mongodb://mongodb.default.svc.cluster.local:27017/test');
+        await mongoose.connect(process.env.MONGODB_URL);
         console.log("MongoDB connected");
     } catch (error) {
         console.log(error);
