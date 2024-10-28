@@ -104,6 +104,7 @@ app.get('/health', async (req, res) => {
         res.status(500).send(error.toString());
     }
 })
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
