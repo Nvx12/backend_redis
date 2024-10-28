@@ -96,7 +96,14 @@ app.get('/queries', async (req, res) => {
         res.status(500).send(error.toString());
     }
 });
-
+app.get('/health', async (req, res) => {
+    try {
+        const response = "Healthy";
+        res.json(response);
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+})
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

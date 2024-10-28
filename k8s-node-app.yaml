@@ -21,6 +21,11 @@ spec:
         image: "raslensafsaf/backend:latest"
         ports:
           - containerPort: 5500
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5500
+          periodSeconds: 5
         envFrom:
           - configMapRef:
               name: nodejs-app-env 
