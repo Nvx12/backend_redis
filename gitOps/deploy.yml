@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: nodejs-app
-        image: "raslensafsaf/backend:v1.1"
+        image: raslensafsaf/backend:v1.1
         ports:
           - containerPort: 5500
         readinessProbe:
@@ -61,7 +61,7 @@ spec:
     spec:
       containers:
       - name: redis
-        image: redis/redis-stack:7.2.0-v6
+        image: raslensafsaf/backend:v1.1
         ports:
           - containerPort: 6379
         volumeMounts:
@@ -88,7 +88,7 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: mongo
+        image: raslensafsaf/backend:v1.1
         ports:
           - containerPort: 27017
         volumeMounts:
@@ -115,7 +115,7 @@ spec:
     spec:
       containers:
       - name: mongo-express
-        image: mongo-express
+        image: raslensafsaf/backend:v1.1
         ports:
           - containerPort: 8081
         env:
