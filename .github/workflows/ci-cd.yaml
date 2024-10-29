@@ -37,15 +37,7 @@ jobs:
     name: argocd
     needs: build_push
     runs-on: ubuntu-latest
-    steps:
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: ./
-          file: ./Dockerfile
-          push: true
-          tags: "${{ secrets.DOCKER_HUB_USERNAME }}/backend:${{ secrets.TAG }}"
-      
+    steps: 
       - name: Update deploy.yml for ArgoCD
         run: |
           sed -i "s|image: .*$|image: ${{ secrets.DOCKER_HUB_USERNAME }}/backend:${{ secrets.TAG }}|" gitOps/deploy.yml
