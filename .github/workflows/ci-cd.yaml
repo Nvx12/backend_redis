@@ -33,3 +33,17 @@ jobs:
           run: |
             echo "runing the docker image"
             echo "Testing the nodejs app endpoints"
+  deploy:
+   name: deploy on k8s
+   runs-on: actions_runner_dev
+   needs: build_push
+   steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4  
+    
+      - name: Deploy the application with argoCD
+        run: |
+          cd test
+          git add .
+          git commit -m "update"
+          git push labs-argo master
