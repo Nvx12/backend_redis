@@ -52,6 +52,6 @@ jobs:
           git config --list
           git add gitOps/deploy.yml
           git commit -m "Update deploy.yml with new Docker image tag"
-          git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
