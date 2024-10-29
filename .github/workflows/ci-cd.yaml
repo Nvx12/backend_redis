@@ -47,8 +47,8 @@ jobs:
       
       - name: Commit and push deploy.yml update
         run: |
-          git config user.name "Nvx12"
-          git config user.email "raslensafsaf@gmail.com"
+          git config --global user.name "Nvx12"
+          git config --global user.email "raslensafsaf@gmail.com"
           git config --list
           git add gitOps/deploy.yml
           git commit -m "Update deploy.yml with new Docker image tag"
