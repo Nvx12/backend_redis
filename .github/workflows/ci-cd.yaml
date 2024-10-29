@@ -33,3 +33,30 @@ jobs:
           run: |
             echo "runing the docker image"
             echo "Testing the nodejs app endpoints"
+  argocd:
+    name: argocd
+    needs: build_push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: "${{ secrets.DOCKER_HUB_USERNAME }}/backend:${{ secrets.TAG }}"
+      
+      - name: Update deploy.yml for ArgoCD
+        run: |
+          sed -i "s|image: .*$|image: ${{ secrets.DOCKER_HUB_USERNAME }}/backend:${{ secrets.TAG }}|" gitOps/deploy.yml
+        shell: bash
+      
+      - name: Commit and push deploy.yml update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add gitOps/deploy.yml
+          git commit -m "Update deploy.yml with new Docker image tag"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
