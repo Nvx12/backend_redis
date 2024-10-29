@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: nodejs-app
-        image: "raslensafsaf/backend:v1"
+        image: "raslensafsaf/backend:v1.1"
         ports:
           - containerPort: 5500
         readinessProbe:

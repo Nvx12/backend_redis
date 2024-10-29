@@ -98,7 +98,7 @@ app.get('/queries', async (req, res) => {
 });
 app.get('/health', async (req, res) => {
     try {
-        const response = "Healthy";
+        const response = "It's Healthy";
         res.json(response);
     } catch (error) {
         res.status(500).send(error.toString());
