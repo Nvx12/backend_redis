@@ -43,6 +43,7 @@ jobs:
     
       - name: Deploy the application with argoCD
         run: |
+          pwd
           cd ./test
           git add .
           git commit -m "update"
