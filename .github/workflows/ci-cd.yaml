@@ -38,10 +38,11 @@ jobs:
     needs: build_push
     runs-on: ubuntu-latest
     steps: 
+      - name: checkout repo
+        uses: actions/checkout@v3
       - name: Update deploy.yml for ArgoCD
         run: |
-          cd gitOps
-          sed -i "s|image: .*$|image: ${{ secrets.DOCKER_HUB_USERNAME }}/backend:${{ secrets.TAG }}|" deploy.yml
+          sed -i "s|image: .*$|image: ${{ secrets.DOCKER_HUB_USERNAME }}/backend:${{ secrets.TAG }}|" gitOps/deploy.yml
         shell: bash
       
       - name: Commit and push deploy.yml update
