@@ -25,28 +25,11 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: "${{ secrets.DOCKER_HUB_USERNAME }}/backend"
+          tags: "${{ secrets.DOCKER_HUB_USERNAME }}/backend:v1"
       - name: Run the image in a container
         uses: addnab/docker-run-action@v3
         with:
-          image: "${{ secrets.DOCKER_HUB_USERNAME }}/backend"
+          image: "${{ secrets.DOCKER_HUB_USERNAME }}/backend:v1"
           run: |
             echo "runing the docker image"
             echo "Testing the nodejs app endpoints"
-  deploy:
-   name: deploy on k8s
-   runs-on: actions_runner_dev
-   needs: build_push
-   steps:
-      - name: Check out the repository to the runner
-        uses: actions/checkout@v4  
-     
-      - name: Download kubectl binaries
-        run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-     
-      - name: Install Kubectl
-        run: sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-      
-      - name: Deploy the application
-        run: |
-          kubectl apply -f ./k8s-node-app.yaml
