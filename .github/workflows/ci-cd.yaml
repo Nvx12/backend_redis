@@ -40,7 +40,8 @@ jobs:
     steps: 
       - name: Update deploy.yml for ArgoCD
         run: |
-          sed -i "s|image: .*$|image: ${{ secrets.DOCKER_HUB_USERNAME }}/backend:${{ secrets.TAG }}|" gitOps/deploy.yml
+          cd gitOps
+          sed -i "s|image: .*$|image: ${{ secrets.DOCKER_HUB_USERNAME }}/backend:${{ secrets.TAG }}|" deploy.yml
         shell: bash
       
       - name: Commit and push deploy.yml update
