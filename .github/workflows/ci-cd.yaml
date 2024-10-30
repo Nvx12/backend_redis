@@ -48,8 +48,8 @@ jobs:
         shell: bash
       - name: Commit and push deploy.yml update
         run: |
-          git config --global user.name "Nvx12"
-          git config --global user.email "raslensafsaf@gmail.com"
+          git config --global user.name ${{ secrets.USERNAME }}
+          git config --global user.email ${{ secrets.EMAIL }}
           git add gitOps/deploy.yml
           git commit -m "Update deploy.yml with new Docker image tag"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
