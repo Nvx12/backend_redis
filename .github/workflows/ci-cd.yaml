@@ -32,8 +32,7 @@ jobs:
           image: "${{ secrets.DOCKER_HUB_USERNAME }}/backend:${{ secrets.TAG }}"
           run: |
             echo "runing the docker image"
-            echo "Testing the nodejs app endpoints"
-            
+            echo "Testing the nodejs app endpoints"     
   argocd:
     name: argocd
     needs: build_push
